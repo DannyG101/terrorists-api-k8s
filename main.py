@@ -1,14 +1,16 @@
 from fastapi import FastAPI, UploadFile
 import pandas as pd
-import uvicorn
 from pydantic import BaseModel
 import pymongo
-from bson import ObjectId
-from pydantic.v1.json import ENCODERS_BY_TYPE
-ENCODERS_BY_TYPE[ObjectId] = str
+import os
 
-my_client = pymongo.MongoClient("mongodb://localhost:27017/")
-my_db = my_client["threat_db"]
+
+MONGO_HOST = os.getenv("MONGO_HOST")
+MONGO_PORT = os.getenv("MONGO_PORT")
+MONGO_DB = os.getenv("MONGO_DB")
+
+my_client = pymongo.MongoClient(f"mongodb://{MONGO_HOST}:{MONGO_PORT}/")
+my_db = my_client[MONGO_DB]
 my_col = my_db["top_threats"]
 
 app = FastAPI()
@@ -35,4 +37,6 @@ def read_file(file: UploadFile):
         dict_version = cur_terrorist.model_dump()
         top.append(dict_version)
     terr_dict["top"] = top
+    x = my_col.insert_one(terr_dict)
+    terr_dict.pop("_id")
     return terr_dict

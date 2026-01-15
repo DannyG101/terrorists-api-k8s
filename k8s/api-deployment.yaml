@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: threat-api
-        image: dannygoldberg/my_cool_app:v1
+        image: dannygoldberg/my_cool_app:v30
         env:
         - name: MONGO_HOST
           value: "mongo-0.mongo"
