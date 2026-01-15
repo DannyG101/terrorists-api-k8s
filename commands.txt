@@ -1,0 +1,4 @@
+docker build -t dannygoldberg/my_cool_app:v1 .
+docker push dannygoldberg/my_cool_app:v1
+
+
