@@ -1,4 +1,11 @@
 docker build -t dannygoldberg/my_cool_app:v1 .
 docker push dannygoldberg/my_cool_app:v1
+oc login --token=sha256~KfyyjKRTXHfDhFnozs0DxJlTBfca1idf7Rk_orHFw8k --server=https://api.rm1.0a51.p1.openshiftapps.com:6443
+oc apply -f . (from the k8s folder)
+oc get pods
+oc get service
+oc get all
+
+
 
 
